@@ -33,12 +33,17 @@ export default {
    */
   modules: [
     // Doc: https://buefy.github.io/#/documentation
-    'nuxt-buefy',
+    ['nuxt-buefy', { materialDesignIcons: false, defaultIconPack: 'fas' }],
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module'
   ],
+  watchers: {
+    webpack: {
+      poll: true
+    }
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
