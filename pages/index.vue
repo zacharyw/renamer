@@ -28,7 +28,11 @@
       </p>
       <hr />
       <div v-show="files.length > 0">
-        <Replacer ref="renamer" :originalFiles="files"></Replacer>
+        <b-tabs v-model="activeTab" type="is-boxed">
+          <b-tab-item label="Replace">
+            <Replacer ref="renamer" :originalFiles="files"></Replacer>
+          </b-tab-item>
+        </b-tabs>
         <b-button type="is-primary" @click="downloadFiles">
           Download Files
         </b-button>
@@ -57,7 +61,8 @@ export default {
         { field: 'type', label: 'Type' },
         { field: 'size', label: 'Size' }
       ],
-      rawPatterns: ''
+      rawPatterns: '',
+      activeTab: 0
     };
   },
   methods: {
