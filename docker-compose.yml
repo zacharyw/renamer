@@ -1,7 +1,10 @@
 version: '3'
 services:
   nuxt:
-    build: .
+    build:
+      context: .
+      args:
+        SSH_PRIVATE_KEY: ssh_private_key
     command: bash -c "yarn run dev"
     volumes:
       - '.:/nuxtapp'
