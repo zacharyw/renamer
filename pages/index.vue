@@ -28,17 +28,7 @@
       </p>
       <hr />
       <div v-show="files.length > 0">
-        <b-field
-          label="Conversion Patterns"
-          label-position="on-border"
-          message="Comma separated list of patterns to be changed in file names."
-        >
-          <b-input
-            v-model="rawPatterns"
-            type="textarea"
-            placeholder="PM2016,PM2019"
-          ></b-input>
-        </b-field>
+        <Replacer ref="renamer" :originalFiles="files"></Replacer>
         <b-button type="is-primary" @click="downloadFiles">
           Download Files
         </b-button>
@@ -51,11 +41,13 @@
 import VueUploadComponent from 'vue-upload-component';
 import * as JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import Replacer from '~/components/Replacer';
 
 export default {
   name: 'HomePage',
   components: {
-    FileUpload: VueUploadComponent
+    FileUpload: VueUploadComponent,
+    Replacer
   },
   data() {
     return {
@@ -68,11 +60,6 @@ export default {
       rawPatterns: ''
     };
   },
-  computed: {
-    patterns() {
-      return this.rawPatterns.split(/\r?\n/);
-    }
-  },
   methods: {
     updateFiles(files) {
       this.files = files;
@@ -84,21 +71,13 @@ export default {
     downloadFiles() {
       const zip = new JSZip();
 
-      this.files.forEach(file => {
-        let name = file.name;
-
-        this.patterns.forEach(pattern => {
-          const [oldPattern, newPattern] = pattern.split(',');
-
-          name = name.replace(oldPattern, newPattern);
-        });
-
-        zip.file(name, file.file);
+      this.$refs.renamer.files.forEach(file => {
+        zip.file(file.name, file.file);
       });
 
       zip.generateAsync({ type: 'blob' }).then(function(content) {
         // see FileSaver.js
-        saveAs(content, 'renamed_files' + new Date().getTime() + '.zip');
+        saveAs(content, 'renamed_files_' + new Date().getTime() + '.zip');
       });
     }
   }
