@@ -46,8 +46,6 @@
 
 <script>
 import VueUploadComponent from 'vue-upload-component';
-import * as JSZip from 'jszip';
-import { saveAs } from 'file-saver';
 import Replacer from '~/components/Replacer';
 import Inserter from '~/components/Inserter';
 
@@ -79,16 +77,7 @@ export default {
       this.$refs.upload.clear();
     },
     downloadFiles() {
-      const zip = new JSZip();
-
-      this.$refs.renamer.files.forEach(file => {
-        zip.file(file.name, file.file);
-      });
-
-      zip.generateAsync({ type: 'blob' }).then(function(content) {
-        // see FileSaver.js
-        saveAs(content, 'renamed_files_' + new Date().getTime() + '.zip');
-      });
+      this.$refs.renamer.downloadZip();
     }
   }
 };
