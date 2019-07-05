@@ -36,7 +36,11 @@
             <Inserter ref="renamer" :originalFiles="files"></Inserter>
           </b-tab-item>
         </b-tabs>
-        <b-button type="is-primary" @click="downloadFiles">
+        <b-button
+          type="is-primary"
+          @click="downloadFiles"
+          style="margin-left: 1rem;"
+        >
           Download Files
         </b-button>
       </div>
