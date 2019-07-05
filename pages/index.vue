@@ -16,7 +16,7 @@
           :value="files"
           @input="updateFiles"
         >
-          <b-button type="is-primary">Upload Files</b-button>
+          <b-button type="is-primary">Select Files</b-button>
         </file-upload>
         <b-button
           v-show="files.length > 0"
@@ -32,6 +32,9 @@
           <b-tab-item label="Replace">
             <Replacer ref="renamer" :originalFiles="files"></Replacer>
           </b-tab-item>
+          <b-tab-item label="Insert">
+            <Inserter ref="renamer" :originalFiles="files"></Inserter>
+          </b-tab-item>
         </b-tabs>
         <b-button type="is-primary" @click="downloadFiles">
           Download Files
@@ -46,12 +49,14 @@ import VueUploadComponent from 'vue-upload-component';
 import * as JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import Replacer from '~/components/Replacer';
+import Inserter from '~/components/Inserter';
 
 export default {
   name: 'HomePage',
   components: {
     FileUpload: VueUploadComponent,
-    Replacer
+    Replacer,
+    Inserter
   },
   data() {
     return {

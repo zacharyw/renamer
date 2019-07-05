@@ -13,16 +13,11 @@
 </template>
 
 <script>
+import RenamerBase from '~/components/RenamerBase.vue';
+
 export default {
   name: 'Replacer',
-  props: {
-    originalFiles: {
-      type: Array,
-      default: function() {
-        return [];
-      }
-    }
-  },
+  extends: RenamerBase,
   data() {
     return {
       rawPatterns: ''
