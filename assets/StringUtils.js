@@ -7,3 +7,11 @@ export function insertAtIndex(base, string, index) {
 export function reverseString(string) {
   return [...string].reverse().join('');
 }
+
+export function getFilenameArray(string) {
+  return [...string].slice(0, string.lastIndexOf('.'));
+}
+
+export function getExtensionArray(string) {
+  return [...string].slice(string.lastIndexOf('.'));
+}

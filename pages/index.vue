@@ -35,6 +35,9 @@
           <b-tab-item label="Insert">
             <Inserter ref="renamer" :originalFiles="files"></Inserter>
           </b-tab-item>
+          <b-tab-item label="Remove">
+            <Remover ref="renamer" :originalFiles="files"></Remover>
+          </b-tab-item>
         </b-tabs>
         <b-button
           type="is-primary"
@@ -52,13 +55,15 @@
 import VueUploadComponent from 'vue-upload-component';
 import Replacer from '~/components/Replacer';
 import Inserter from '~/components/Inserter';
+import Remover from '~/components/Remover';
 
 export default {
   name: 'HomePage',
   components: {
     FileUpload: VueUploadComponent,
     Replacer,
-    Inserter
+    Inserter,
+    Remover
   },
   data() {
     return {
